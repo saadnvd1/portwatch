@@ -77,13 +77,11 @@ func initialModel() model {
 	ti.CharLimit = 40
 
 	labels := loadLabels()
-	ports := scanPorts()
-	applyLabels(ports, labels)
 
-	return model{ports: ports, filter: ti, labels: labels}
+	return model{filter: ti, labels: labels}
 }
 
-func (m model) Init() tea.Cmd { return tickCmd() }
+func (m model) Init() tea.Cmd { return tea.Batch(tickCmd(), scanCmd(m.labels)) }
 
 func (m *model) setMessage(msg string) {
 	m.message = msg
@@ -346,7 +344,11 @@ func (m model) View() string {
 	}
 
 	if len(filtered) == 0 {
-		b.WriteString(helpStyle.Render("\n  no ports listening\n"))
+		if m.ports == nil {
+			b.WriteString(helpStyle.Render("\n  scanning ports…\n"))
+		} else {
+			b.WriteString(helpStyle.Render("\n  no ports listening\n"))
+		}
 	}
 
 	// Detail panel
