@@ -56,6 +56,10 @@ portwatch list       # one-shot list (scriptable)
 
 Single-binary Go app. Scans ports via `lsof`, resolves process names via `ps`, enriches with Docker and serviceman metadata. Labels persist to `~/.config/portwatch/labels.json`. UI built with [bubbletea](https://github.com/charmbracelet/bubbletea).
 
+## Related
+
+- [serviceman](https://github.com/saadnvd1/serviceman) — lightweight process manager with auto-restart and logging. portwatch auto-detects serviceman-managed services and shows them by name.
+
 ## License
 
 MIT
