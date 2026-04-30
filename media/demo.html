@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #2e3440;
+    color: #d8dee9;
+    font-family: "SF Mono", "Menlo", "Monaco", monospace;
+    font-size: 13.5px;
+    line-height: 1.6;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+  }
+  .window {
+    background: #2e3440;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+  }
+  .titlebar {
+    background: #3b4252;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-red { background: #bf616a; }
+  .dot-yellow { background: #ebcb8b; }
+  .dot-green { background: #a3be8c; }
+  .titlebar-text { color: #4c566a; font-size: 12px; margin-left: 8px; }
+  .content { padding: 20px 24px; overflow: hidden; flex: 1; }
+  pre { font-family: inherit; font-size: inherit; line-height: inherit; white-space: pre; }
+
+  /* Nord palette — matching portwatch styles */
+  .purple { color: #b48ead; }
+  .cyan { color: #88c0d0; }
+  .green { color: #a3be8c; }
+  .yellow { color: #ebcb8b; }
+  .blue { color: #81a1c1; }
+  .dim { color: #4c566a; }
+  .white { color: #d8dee9; }
+  .bright { color: #eceff4; }
+
+  /* Selected row highlight */
+  .row-sel {
+    background: #3b4252;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+  }
+  .row-sel .cyan { color: #88c0d0; font-weight: bold; }
+  .row-sel .white { color: #eceff4; font-weight: bold; }
+  .row-sel .blue { color: #81a1c1; font-weight: bold; }
+  .row-sel .yellow { color: #ebcb8b; font-weight: bold; }
+  .row-sel .dim { color: #4c566a; font-weight: bold; }
+
+  /* Detail box */
+  .detail-box {
+    border: 1px solid #4c566a;
+    border-radius: 8px;
+    padding: 6px 14px;
+    margin-top: 12px;
+    margin-left: 4px;
+    display: inline-block;
+  }
+  .detail-box .dim { color: #4c566a; }
+  .detail-box .white { color: #d8dee9; }
+  .detail-box .green { color: #a3be8c; }
+
+  .help { margin-top: 16px; }
+  .help .blue { font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="dot dot-red"></div>
+    <div class="dot dot-yellow"></div>
+    <div class="dot dot-green"></div>
+    <span class="titlebar-text">portwatch</span>
+  </div>
+  <div class="content">
+    <pre>
+ <span class="purple" style="font-weight:bold">portwatch</span>  <span class="dim">14 ports / 3 docker</span>
+
+ <span class="dim" style="font-weight:bold"> PORT     PROCESS               CONTAINER             LABEL</span>
+ <span class="dim">──────────────────────────────────────────────────────────────────────</span>
+ <span class="cyan">1080   </span>  <span class="white">v2ray                </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+ <span class="cyan">3000   </span>  <span class="white">next-server dev      </span>  <span class="dim">·                   </span>  <span class="yellow">saadnaveed  </span>
+ <span class="cyan">3051   </span>  <span class="white">saad-research        </span>  <span class="dim">·                   </span>  <span class="yellow">research    </span>
+ <span class="cyan">3060   </span>  <span class="white">saadhq               </span>  <span class="dim">·                   </span>  <span class="yellow">dashboard   </span>
+ <span class="cyan">3080   </span>  <span class="white">viewbox              </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+<span class="row-sel"> <span class="cyan">5050   </span>  <span class="white">edge                 </span>  <span class="dim">·                   </span>  <span class="yellow">trading     </span>                        </span>
+ <span class="cyan">5055   </span>  <span class="white">specter              </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+ <span class="cyan">5173   </span>  <span class="white">vite                 </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+ <span class="cyan">5432   </span>  <span class="white">postgres             </span>  <span class="blue">supabase-db          </span>  <span class="dim">·</span>
+ <span class="cyan">5433   </span>  <span class="white">postgres             </span>  <span class="blue">paperless-db         </span>  <span class="dim">·</span>
+ <span class="cyan">8000   </span>  <span class="white">uvicorn              </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+ <span class="cyan">8025   </span>  <span class="white">mailhog              </span>  <span class="blue">paperless-mail       </span>  <span class="dim">·</span>
+ <span class="cyan">8080   </span>  <span class="white">nginx                </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+ <span class="cyan">9200   </span>  <span class="white">elasticsearch        </span>  <span class="dim">·                   </span>  <span class="dim">·</span>
+
+  <span class="detail-box"><span class="dim">url </span><span class="white">http://localhost:5050</span>   <span class="dim">pid </span><span class="white">41823</span>   <span class="dim">service </span><span class="green">edge</span>   <span class="dim">label </span><span class="yellow">trading</span></span>
+
+ <span class="help"><span class="blue">o</span> <span class="dim">open  </span><span class="blue">K</span> <span class="dim">kill  </span><span class="blue">c</span> <span class="dim">curl  </span><span class="blue">l</span> <span class="dim">label  </span><span class="blue">/</span> <span class="dim">filter  </span><span class="blue">q</span> <span class="dim">quit</span></span></pre>
+  </div>
+</div>
+</body>
+</html>
